@@ -7,8 +7,6 @@ class MessagesController < ApplicationController
   end
 
   # GET /messages/1 or /messages/1.json
-  def show
-  end
 
   # GET /messages/new
   def new
@@ -17,6 +15,11 @@ class MessagesController < ApplicationController
 
   # GET /messages/1/edit
   def edit
+    respond_to do |fomat|
+      fomat.turbo_stream {
+        render turbo_stream: turbo_stream.update(@message, partial: "messages/form", locals: {message: @message})
+      }
+    end
   end
 
   # POST /messages or /messages.json
@@ -28,7 +31,10 @@ class MessagesController < ApplicationController
         format.turbo_stream do
           render turbo_stream: [
           turbo_stream.update("new_message",partial: "messages/form", locals: {message: Message.new}),
-          turbo_stream.append("messages", partial: "messages/message", locals: {message: @message})
+          turbo_stream.append("messages", partial: "messages/message", locals: {message: @message}),
+          turbo_stream.update("messages_counter", Message.count),
+          turbo_stream.update("notice", "Messages #{@message.id} is created")
+
           ]
         end
         format.html { redirect_to message_url(@message), notice: "Message was successfully created." }
@@ -48,9 +54,17 @@ class MessagesController < ApplicationController
   def update
     respond_to do |format|
       if @message.update(message_params)
+        format.turbo_stream {
+          render turbo_stream: [turbo_stream.update(@message, partial: "messages/message", locals: {message: @message}),
+                                turbo_stream.update("notice", "Messages #{@message.id} is successfully updated.")
+          ]
+        }
         format.html { redirect_to message_url(@message), notice: "Message was successfully updated." }
         format.json { render :show, status: :ok, location: @message }
       else
+        format.turbo_stream {
+          render turbo_stream: turbo_stream.update(@message, partial: "messages/form", locals: {message: @message})
+        }
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @message.errors, status: :unprocessable_entity }
       end
@@ -62,7 +76,12 @@ class MessagesController < ApplicationController
     @message.destroy
 
     respond_to do |format|
-      format.html { redirect_to messages_url, notice: "Message was successfully destroyed." }
+      format.turbo_stream do
+        render turbo_stream: [turbo_stream.remove(@message),
+                              turbo_stream.update("messages_counter", Message.count),
+                              turbo_stream.update("notice", "Messages #{@message.id} was successfully destroyed.")
+        ]
+        end
       format.json { head :no_content }
     end
   end
