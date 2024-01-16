@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <!-- Un-Minified version -->
+    <!-- Minified version -->
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+
+    <!-- Un-Minified version -->
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.css">
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
@@ -12,7 +18,10 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+    <main class="container mx-auto mt-28 px-5">
+      <div id="flash">
+        <%= render partial: "layouts/flash" %>
+      </div>
       <%= yield %>
     </main>
   </body>

@@ -3,7 +3,7 @@ class MessagesController < ApplicationController
 
   # GET /messages or /messages.json
   def index
-    @messages = Message.order(id: :desc)
+    @messages = Message.where("body like ?", "%#{params[:body]}%").order(id: :desc)
   end
 
   # GET /messages/1 or /messages/1.json
@@ -15,8 +15,9 @@ class MessagesController < ApplicationController
 
   # GET /messages/1/edit
   def edit
-    respond_to do |fomat|
-      fomat.turbo_stream {
+    # return root_path if turbo_frame_request?
+    respond_to do |format|
+      format.turbo_stream {
         render turbo_stream: turbo_stream.update(@message, partial: "messages/form", locals: {message: @message})
       }
     end
@@ -28,13 +29,13 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.save
+        flash[:notice] = "Messages #{@message.id} is created"
         format.turbo_stream do
           render turbo_stream: [
           turbo_stream.update("new_message",partial: "messages/form", locals: {message: Message.new}),
           turbo_stream.append("messages", partial: "messages/message", locals: {message: @message}),
           turbo_stream.update("messages_counter", Message.count),
-          turbo_stream.update("notice", "Messages #{@message.id} is created")
-
+          turbo_stream.update("flash", partial: "layouts/flash" )
           ]
         end
         format.html { redirect_to message_url(@message), notice: "Message was successfully created." }

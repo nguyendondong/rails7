@@ -1,15 +1,20 @@
 <div class="w-full">
-  <%= Time.now() %>
-  <div id="notice"><%= notice %></div>
   <div> TOTAL MESSAGES:
     <span id="messages_counter"><%= Message.count%></span>
   </div>
-
-  <div id="new_message">
-    <%= render partial: "messages/form", locals: {message: Message.new} %>
-  </div>
-
-  <div id="messages" class="min-w-full">
-    <%= render @messages %>
-  </div>
+<%= Time.now() %>
+  <%= link_to "New Message", new_message_path, data: {turbo_frame: :modal}, class: "rounded-lg py-3 px-5 bg-green-600 text-white inline-block font-medium cursor-pointer" %>
+ <div class="p-2">
+  <%=turbo_frame_tag :modal %>
+ </div>
+    <%= form_with url: messages_path, method: :get, html: {
+      data: {turbo_frame: :search_messages , controller: "messages", messages_target: "form"}
+    }  do |form|%>
+    <%= form.search_field :body, data:{ action: "input->messages#search"}%>
+    <% end %>
+  <%= turbo_frame_tag :search_messages do %>
+    <div id="messages" class="min-w-full">
+      <%= render @messages %>
+    </div>
+  <% end %>
 </div>
