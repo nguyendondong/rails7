@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root "messages#index"
-  resources :messages do
+  resources :messages, except: [:show] do
     member do
       post :edit
     end
