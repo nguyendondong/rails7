@@ -1,0 +1,41 @@
+version: "3.5"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    volumes:
+      - .:/app
+      - bundle_data:/bundle
+    command: bash -c "rm -f tmp/pids/server.pid && rails db:prepare && rails server -b 0.0.0.0"
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    stdin_open: true
+    tty: false
+    networks:
+      - rails7-docker-app-networks
+  db:
+    image: postgres:14-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - .:/myapp
+    environment:
+      - POSTGRES_PASSWORD=password
+    expose:
+      - "5432"
+    ports:
+      - 5433:5432
+    restart: always
+    networks:
+      - rails7-docker-app-networks
+volumes:
+  postgres_data:
+  bundle_data:
+networks:
+  rails7-docker-app-networks:
+    driver: bridge
+    ipam:
+      driver: default

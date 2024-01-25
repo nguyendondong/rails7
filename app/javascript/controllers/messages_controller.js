@@ -4,7 +4,7 @@ export default class extends Controller {
     connect() {
         console.log("ket noi dc roi");
     }
-    static  targets = ["form", "a"]
+    static  targets = ["form"]
     search() {
         clearTimeout(this.timeout)
         this.timeout = setTimeout(() => {

@@ -3,7 +3,9 @@
     <span id="messages_counter"><%= Message.count%></span>
   </div>
 <%= Time.now() %>
-  <%= link_to "New Message", new_message_path, data: {turbo_frame: :modal}, class: "rounded-lg py-3 px-5 bg-green-600 text-white inline-block font-medium cursor-pointer" %>
+  <div data-controller="autohide">
+  <%= button_to "New Message", new_message_path, method: :get, data: {turbo_frame: :modal, autohide_target: :autoHideContent, action: "click->autohide#hideButton"}, class: "rounded-lg py-3 px-5 bg-green-600 text-white inline-block font-medium cursor-pointer" %>
+  </div>
  <div class="p-2">
   <%=turbo_frame_tag :modal %>
  </div>

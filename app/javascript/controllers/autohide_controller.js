@@ -2,14 +2,12 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="autohide"
 export default class extends Controller {
+  static  targets = ["autoHideContent"]
   connect() {
-    setTimeout(() => {
-      this.hide()
-    }, 2000);
   }
 
-  hide(){
-    this.element.remove()
+  hideButton(){
+    this.autoHideContentTarget.hidden = true;
   }
 
 }
