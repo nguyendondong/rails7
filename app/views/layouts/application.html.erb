@@ -10,12 +10,12 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body data-bg-them="light">
-  <div id="root">
-    <div class="layout-wrapper flex">
-      <%= render partial:'layouts/sidemenu' %>
-      <%= yield %>
+  <body data-bg-them="light" class="overflow-hidden">
+    <div id="root">
+      <div class="layout-wrapper flex">
+        <%= render partial:'layouts/sidemenu' %>
+        <%= yield %>
+      </div>
     </div>
-  </div>
   </body>
 </html>
