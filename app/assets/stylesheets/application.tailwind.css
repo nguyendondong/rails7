@@ -11,3 +11,40 @@
 }
 
 */
+.side-menu {
+    max-width: 75px;
+    min-width: 75px;
+    display: flex;
+    box-shadow: 0 2px 4px rgba(15,34,58,.12);
+    height: 100vh;
+    background-color: #ffffff;
+}
+.chat-leftsidebar{
+    height: 100vh;
+    max-width: 380px;
+    min-width: 380px;
+    background-color: #f5f7fb;
+    box-shadow: 0 2px 4px rgba(15,34,58,.12);
+}
+.user-chat-message{
+    height: 100vh;
+}
+.chat-message {
+   max-height: 75vh;
+   min-height: 75vh;
+}
+.text-messages {
+    background-color: #e6ebf5;
+    border-radius: .4rem;
+    font-size: .875rem;
+    min-height: calc(1.5em + 1rem + 6px);
+    padding: .5rem 1rem;
+    width: inherit;
+}
+.body-messages{
+    width: 100%;
+}
+.button-message{
+    margin-left: 10px;
+    padding-block-start: 10px;
+}

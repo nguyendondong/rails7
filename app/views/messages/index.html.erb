@@ -1,22 +1,46 @@
-<div class="w-full">
-  <div> TOTAL MESSAGES:
+<div class="chat-leftsidebar">
+  <div class="text-red-500"> TOTAL MESSAGES:
     <span id="messages_counter"><%= Message.count%></span>
-  </div>
-<%= Time.now() %>
-  <div data-controller="autohide">
-  <%= button_to "New Message", new_message_path, method: :get, data: {turbo_frame: :modal, autohide_target: :autoHideContent, action: "click->autohide#hideButton"}, class: "rounded-lg py-3 px-5 bg-green-600 text-white inline-block font-medium cursor-pointer" %>
-  </div>
- <div class="p-2">
-  <%=turbo_frame_tag :modal %>
- </div>
-    <%= form_with url: messages_path, method: :get, html: {
-      data: {turbo_frame: :search_messages , controller: "messages", messages_target: "form"}
-    }  do |form|%>
-    <%= form.search_field :body, data:{ action: "input->messages#search"}%>
-    <% end %>
-  <%= turbo_frame_tag :search_messages do %>
-    <div id="messages" class="min-w-full">
-      <%= render @messages %>
+    <div class="px-3">
+      <%= form_with url: messages_path, method: :get, html: {
+        data: {turbo_frame: :search_messages , controller: "messages", messages_target: "form"}
+      }  do |form|%>
+        <%= form.search_field :body, data:{ action: "input->messages#search"}%>
+      <% end %>
     </div>
-  <% end %>
+  </div>
+</div>
+<div class="user-chat w-full">
+  <div class="flex">
+    <div class="w-full overflow-hidden relative">
+      <div class="p-3 border-b user-chat-topbar">
+        <div class="grid grid-cols-3">
+          <div class="justify-start">
+            <div class="p-3">
+            <span> HELLO MN
+              <i class="fa-solid fa-check"></i>
+            </span>
+            </div>
+          </div>
+          <div class="flex col-span-2 justify-end">
+            <div class="p-3"><i class="fa-solid fa-magnifying-glass"></i></div>
+            <div class="p-3"><i class="fa-brands fa-facebook"></i></div>
+            <div class="p-3"><i class="fa-brands fa-twitter"></i></div>
+            <div class="p-3"><i class="fa-solid fa-phone"></i></div>
+          </div>
+        </div>
+      </div>
+      <div class="px-3 chat-message">
+        <%= turbo_frame_tag :search_messages do %>
+          <div id="messages" class="min-w-full snap-center">
+            <%= render @messages %>
+          </div>
+        <% end %>
+      </div>
+      <div class="p-3 border-t user-chat-message">
+        <%= render "form", message: @message %>
+      </div>
+
+    </div>
+  </div>
 </div>
