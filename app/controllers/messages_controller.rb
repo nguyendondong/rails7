@@ -49,7 +49,7 @@ locals: {message: @message})
   def handle_create_success
     [
       turbo_stream.update("new_message", partial: "messages/form", locals: {message: Message.new}),
-      turbo_stream.prepend("messages", partial: "messages/message", locals: {message: @message}),
+      turbo_stream.append("messages", partial: "messages/message", locals: {message: @message}),
       turbo_stream.update("messages_counter", Message.count),
       turbo_stream.update("flash", partial: "layouts/flash")
     ]
