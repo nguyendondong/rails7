@@ -26,7 +26,7 @@
                 <%= form_with url: messages_path, method: :get, html: {
                   data: {turbo_frame: :search_messages, messages_target: "form",}
                 }  do |form|%>
-                  <%= form.search_field :body, data:{ action: "input->messages#search"}, class: "w-full"%>
+                  <%= form.search_field :body, data:{ action: "input->messages#search", messages_target: "inputContent"}, class: "w-full"%>
                 <% end %>
               </div>
               <button class="p-3" data-action="click->messages#openSearchInput" data-messages-target="openSearchInputContent" ><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -40,19 +40,17 @@
         <div class="px-3 chat-message">
           <%= turbo_frame_tag :search_messages do %>
               <div class="text-center" id="load-more">
-                <%#== pagy_next_link(@pagy, text: 'More...', link_extra: 'id="next_link"' ) %>
                 <%= link_to "Load More", pagy_url_for(@pagy, @pagy.next), method: :get, data:{turbo_stream: true} if @pagy.next %>
               </div>
             <div id="messages" class="min-w-full snap-center">
               <%= render @messages %>
             </div>
-
           <% end %>
+            <div id="bottom"></div>
         </div>
-        <div class="p-3 border-t user-chat-message">
-          <%= render "form", message: @message %>
+        <div id="new_message" class="p-3 border-t user-chat-message">
+          <%= render "form", message: Message.new %>
         </div>
-
       </div>
     </div>
   </div>

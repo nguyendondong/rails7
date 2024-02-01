@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-    static  targets = ["form", "openSearchInputContent", "closeSearchInputContent"];
+    static  targets = ["form", "openSearchInputContent", "closeSearchInputContent", "inputContent"];
     static  values = {
         open: Boolean
     }
@@ -29,10 +29,8 @@ export default class extends Controller {
         this.formTarget.hidden = true;
         this.closeSearchInputContentTarget.hidden = true;
         this.openSearchInputContentTarget.hidden = false;
-
-    }
-    submitForm(){
-
+        this.inputContentTarget.value = "";
+        this.search();
     }
 
 }

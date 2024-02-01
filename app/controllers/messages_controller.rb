@@ -34,8 +34,7 @@ locals: {message: @message})
       if @message.save
         flash[:notice] = "Messages #{@message.id} is created"
         format.turbo_stream do
-          render turbo_stream: [turbo_stream.append("messages", partial: "messages/message",
-locals: {message: @message})]
+          render turbo_stream: handle_create_success
         end
       else
         format.turbo_stream do
@@ -47,14 +46,13 @@ locals: {message: @message})]
     end
   end
 
-  # def handle_create_success
-  #   [
-  #     turbo_stream.update("new_message", partial: "messages/form", locals: {message: Message.new}),
-  #     turbo_stream.append("messages", partial: "messages/message", locals: {message: @message}),
-  #     turbo_stream.update("messages_counter", Message.count),
-  #     turbo_stream.update("flash", partial: "layouts/flash")
-  #   ]
-  # end
+  def handle_create_success
+    [turbo_stream.append("messages", partial: "messages/message",
+                         locals: {message: @message}),
+     turbo_stream.update("new_message", partial: "messages/form",
+                         locals: {message: Message.new}),
+     turbo_stream.update("messages_counter", Message.count)]
+  end
 
   # PATCH/PUT /messages/1 or /messages/1.json
   def update
