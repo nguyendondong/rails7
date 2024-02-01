@@ -1,9 +1,7 @@
-<div id="<%= dom_id message %>" class="snap-center">
-  <p class="my-5">
-    <%= message.body %>
-  </p>
-  <div>
-    <%#= button_to "Edit ", edit_message_path(message), method: :post, class: "rounded-lg py-3 px-5 bg-green-600 text-white inline-block font-medium cursor-pointer" %>
-    <%#= button_to "Destroy ", message_path(message), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+<div id="<%= dom_id message %>" class="flex">
+  <div class="my-5"><%= message.body %> </div>
+  <div class="px-5">
+    <%#= button_to '<i class="fa-solid fa-check"></i>'.html_safe, edit_message_path(message), method: :post, class: "cursor-pointer" %>
+    <%#= button_to '<i class="fa-solid fa-check"></i>'.html_safe, message_path(message), method: :delete, class: "cursor-pointer" %>
   </div>
 </div>

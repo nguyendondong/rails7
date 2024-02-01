@@ -27,11 +27,10 @@
     box-shadow: 0 2px 4px rgba(15,34,58,.12);
 }
 .user-chat-message{
-    height: 100vh;
 }
 .chat-message {
-   max-height: 75vh;
-   min-height: 75vh;
+   max-height: 83vh;
+   min-height: 83vh;
    overflow-y: scroll;
 }
 .text-messages {
@@ -48,4 +47,16 @@
 .button-message{
     margin-left: 10px;
     padding-block-start: 10px;
+}
+.form-control-lg {
+    border-radius: .4rem;
+    font-size: .875rem;
+    min-height: calc(1.5em + 1rem + 6px);
+    padding: .5rem 1rem
+}
+
+.form-control-lg::-webkit-file-upload-button {
+    -webkit-margin-end: 1rem;
+    margin: -.5rem -1rem;
+    margin-inline-end:1rem;padding: .5rem 1rem
 }
