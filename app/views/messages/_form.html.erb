@@ -1,10 +1,10 @@
-<%= form_with(model: Message.new, class: "contents") do |form| %>
+<%= form_with(model: Message.new, class: "contents", html: {data: { action: "submit->messages#submitForm"}})  do |form| %>
     <div class="inline-flex w-full">
         <div class="body-messages">
-          <%= form.text_area :body, rows: 2, class: "text-messages" %>
+          <%= form.text_field :body, class: "text-messages form-control-lg", placeholder: "Enter Message..." %>
         </div>
         <div class="button-message">
-          <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white font-medium cursor-pointer", value: "create" %>
+          <%= form.button '<i class="fa-solid fa-angles-right"></i>'.html_safe, class: "cursor-pointer" %>
         </div>
     </div>
 <% end %>

@@ -1,0 +1,6 @@
+<%= turbo_stream.prepend "messages" do %>
+  <%=render @messages %>
+<% end %>
+<%= turbo_stream.update "load-more" do %>
+  <%= link_to "Load More", pagy_url_for(@pagy, @pagy.next), method: :get, data:{turbo_stream: true} if @pagy.next%>
+<% end %>
