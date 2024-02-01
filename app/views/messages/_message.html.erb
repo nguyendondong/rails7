@@ -1,7 +1,7 @@
-<div id="<%= dom_id message %>" class="flex">
-  <div class="my-5"><%= message.body %> </div>
-  <div class="px-5">
+<div data-controller="scroll" id="<%= dom_id message %>" class="flex">
+  <div class="my-3"><%= message.body %> </div>
+<!--  <div class="px-5">-->
     <%#= button_to '<i class="fa-solid fa-check"></i>'.html_safe, edit_message_path(message), method: :post, class: "cursor-pointer" %>
     <%#= button_to '<i class="fa-solid fa-check"></i>'.html_safe, message_path(message), method: :delete, class: "cursor-pointer" %>
-  </div>
+<!--  </div>-->
 </div>

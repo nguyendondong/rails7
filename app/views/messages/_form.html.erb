@@ -1,4 +1,4 @@
-<%= form_with(model: Message.new, class: "contents", html: {data: { action: "submit->messages#submitForm"}})  do |form| %>
+<%= form_with(model: message, class: "contents")  do |form| %>
     <div class="inline-flex w-full">
         <div class="body-messages">
           <%= form.text_field :body, class: "text-messages form-control-lg", placeholder: "Enter Message..." %>
