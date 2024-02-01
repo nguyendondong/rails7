@@ -6,6 +6,7 @@ class MessagesController < ApplicationController
   # GET /messages or /messages.json
   def index
     @pagy, @messages = pagy(Message.where("body like ?", "%#{params[:body]}%").order(id: :desc))
+    @messages = @messages.reverse
   end
 
   # GET /messages/1 or /messages/1.json
